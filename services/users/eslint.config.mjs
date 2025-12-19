@@ -1,0 +1,25 @@
+import config from '@repo-pak/config/src/eslint/base.mjs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const tsconfigRootDir = path.dirname(fileURLToPath(import.meta.url));
+
+export default [
+  // Ignore config files
+  {
+    ignores: ['eslint.config.mjs', '**/*.config.*', '**/dist/**'],
+  },
+
+  ...config,
+
+  // Apply typed linting ONLY to source files
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir,
+        project: ['./tsconfig.eslint.json'],
+      },
+    },
+  }
+];
