@@ -26,3 +26,7 @@ dist-ssr
 # Generated API files
 **swagger.json
 **/generated/*
+**/routes/routes.ts
+
+# test related
+**/coverage/*
