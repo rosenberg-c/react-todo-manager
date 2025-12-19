@@ -13,7 +13,7 @@
     "___utils___": "",
     "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "generate:api": "pnpm -r generate:openapi:be && pnpm -r generate:openapi:fe",
-    "dev:services": "concurrently --names \"users\" -c \"blue\" \"cd services/users && pnpm run dev\"",
+    "dev:services": "concurrently --names \"users,todos\" -c \"blue,green\" \"cd services/users && pnpm run dev\" \"cd services/todos && pnpm run dev\""
   },
   "devDependencies": {
     "@repo-pak/config": "workspace:*",
