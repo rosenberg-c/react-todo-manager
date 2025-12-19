@@ -1,0 +1,21 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/controllers/**/*.ts"],
+  "spec": {
+    "outputDirectory": "api",
+    "specVersion": 3,
+    "basePath": "",
+    "host": "localhost:3002",
+    "schemes": ["http"],
+    "name": "Todo Service API",
+    "description": "Todo service with CRUD and reorder functionality",
+    "version": "1.0.0"
+  },
+  "routes": {
+    "routesDir": "src/routes",
+    "middleware": "express",
+    "iocModule": "src/ioc",
+    "basePath": "/"
+  }
+}
