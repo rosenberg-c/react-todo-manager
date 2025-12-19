@@ -1,22 +1,22 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import styled from 'styled-components';
 
-import { defaultStyles } from './styles';
+export const ButtonPrimary = styled.button`
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #4a90e2;
+  color: white;
 
-export type ButtonPrimaryProps = ComponentPropsWithoutRef<'button'>;
+  &:hover:not(:disabled) {
+    background: #357abd;
+  }
 
-export const ButtonPrimary = ({
-  children,
-  style,
-  ...props
-}: ButtonPrimaryProps) => {
-  const styles = {
-    ...defaultStyles.button,
-    ...style,
-  };
-
-  return (
-    <button style={styles} {...props}>
-      {children}
-    </button>
-  );
-};
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
