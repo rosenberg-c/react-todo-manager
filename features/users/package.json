@@ -19,6 +19,7 @@
   "dependencies": {
     "@repo-pak/api-client": "workspace:*",
     "@repo-pak/components": "workspace:*",
+    "@repo-pak/styles": "workspace:*",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {

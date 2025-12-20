@@ -1,20 +1,11 @@
 import styled from 'styled-components';
-
-const colors = {
-  textPrimary: '#213547',
-  textSecondary: '#666',
-  textHeading: '#dadddfff',
-  background: 'white',
-  backgroundMuted: '#f9f9f9',
-  border: '#e0e0e0',
-  shadow: 'rgba(0, 0, 0, 0.1)',
-};
+import { colors } from '@repo-pak/styles';
 
 export const Container = styled.div`
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
-  color: ${colors.textPrimary};
+  color: ${colors.textDark};
 `;
 
 export const HeaderContainer = styled.div`
@@ -26,13 +17,13 @@ export const HeaderContainer = styled.div`
 
 export const Title = styled.h1`
   margin: 0;
-  color: ${colors.textHeading};
+  color: ${colors.textLight};
 `;
 
 export const SectionTitle = styled.h2`
   margin-bottom: 1rem;
   font-size: 1.25rem;
-  color: ${colors.textPrimary};
+  color: ${colors.textDark};
 `;
 
 export const UserInfoHeader = styled.div`
@@ -91,7 +82,7 @@ export const UserInfo = styled.div`
 
 export const UserUsername = styled.strong`
   font-size: 1.1rem;
-  color: ${colors.textPrimary};
+  color: ${colors.textDark};
 `;
 
 export const UserDetail = styled.span`
