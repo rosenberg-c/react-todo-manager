@@ -1,5 +1,35 @@
 import styled from 'styled-components';
 
+const colors = {
+  textPrimary: '#333',
+  textSecondary: '#666',
+  textMuted: '#999',
+  textLight: 'rgba(255, 255, 255, 0.87)',
+  textDark: '#1a1a1a',
+
+  background: 'white',
+  backgroundMuted: '#f8f9fa',
+  backgroundHover: '#f0f0f0',
+  backgroundOverlay: 'rgba(0, 0, 0, 0.05)',
+  backgroundOverlayHover: 'rgba(0, 0, 0, 0.08)',
+
+  border: '#e0e0e0',
+  borderLight: '#ddd',
+  borderMuted: '#ccc',
+  borderDivider: '#f0f0f0',
+
+  shadow: 'rgba(0, 0, 0, 0.1)',
+  shadowHover: 'rgba(0, 0, 0, 0.15)',
+
+  primary: '#4a90e2',
+  primaryHover: '#357abd',
+  secondary: '#e0e0e0',
+  secondaryHover: '#d0d0d0',
+
+  danger: '#dc3545',
+  dangerBackground: '#ffe0e0',
+};
+
 export const Container = styled.div`
   max-width: 1400px;
   margin: 0 auto;
@@ -14,12 +44,12 @@ export const Title = styled.h1`
   font-size: 28px;
   font-weight: 600;
   margin: 0 0 10px 0;
-  color: rgba(255, 255, 255, 0.87);
+  color: ${colors.textLight};
 `;
 
 export const Subtitle = styled.p`
   font-size: 14px;
-  color: #666;
+  color: ${colors.textSecondary};
   margin: 0;
 `;
 
@@ -33,7 +63,8 @@ export const BoardContainer = styled.div`
 export const Column = styled.div<{ $isDragOver?: boolean }>`
   flex: 1;
   min-width: 320px;
-  background: ${(props) => (props.$isDragOver ? '#f0f0f0' : '#f8f9fa')};
+  background: ${(props) =>
+    props.$isDragOver ? colors.backgroundHover : colors.backgroundMuted};
   border-radius: 8px;
   padding: 16px;
   transition: background-color 0.2s ease;
@@ -45,21 +76,21 @@ export const ColumnHeader = styled.div`
   justify-content: space-between;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid ${colors.border};
 `;
 
 export const ColumnTitle = styled.h2`
   font-size: 16px;
   font-weight: 600;
   margin: 0;
-  color: #333;
+  color: ${colors.textPrimary};
 `;
 
 export const ColumnCount = styled.span`
   font-size: 14px;
   font-weight: 500;
-  color: #666;
-  background: #fff;
+  color: ${colors.textSecondary};
+  background: ${colors.background};
   padding: 4px 10px;
   border-radius: 12px;
 `;
@@ -72,16 +103,16 @@ export const TodoList = styled.div`
 `;
 
 export const Card = styled.div<{ $isDragging?: boolean }>`
-  background: white;
+  background: ${colors.background};
   border-radius: 6px;
   padding: 14px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px ${colors.shadow};
   cursor: grab;
   transition: all 0.2s ease;
   opacity: ${(props) => (props.$isDragging ? '0.5' : '1')};
 
   &:hover {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 6px ${colors.shadowHover};
     transform: translateY(-2px);
   }
 
@@ -101,14 +132,14 @@ export const CardTitle = styled.h3`
   font-size: 15px;
   font-weight: 500;
   margin: 0;
-  color: #1a1a1a;
+  color: ${colors.textDark};
   flex: 1;
   word-break: break-word;
 `;
 
 export const CardDescription = styled.p`
   font-size: 13px;
-  color: #666;
+  color: ${colors.textSecondary};
   margin: 0 0 12px 0;
   line-height: 1.4;
   word-break: break-word;
@@ -120,18 +151,18 @@ export const CardFooter = styled.div`
   align-items: center;
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid ${colors.borderDivider};
 `;
 
 export const CardDate = styled.span`
   font-size: 11px;
-  color: #999;
+  color: ${colors.textMuted};
 `;
 
 export const DeleteButton = styled.button`
   background: transparent;
   border: none;
-  color: #dc3545;
+  color: ${colors.danger};
   cursor: pointer;
   font-size: 12px;
   padding: 4px 8px;
@@ -139,15 +170,15 @@ export const DeleteButton = styled.button`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background: #ffe0e0;
+    background: ${colors.dangerBackground};
   }
 `;
 
 export const AddForm = styled.form`
-  background: white;
+  background: ${colors.background};
   border-radius: 6px;
   padding: 14px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px ${colors.shadow};
   margin-bottom: 12px;
 `;
 
@@ -166,12 +197,15 @@ export const Button = styled.button<{ $variant?: 'primary' | 'secondary' }>`
   cursor: pointer;
   transition: all 0.2s ease;
   background: ${(props) =>
-    props.$variant === 'primary' ? '#4a90e2' : '#e0e0e0'};
-  color: ${(props) => (props.$variant === 'primary' ? 'white' : '#333')};
+    props.$variant === 'primary' ? colors.primary : colors.secondary};
+  color: ${(props) =>
+    props.$variant === 'primary' ? colors.background : colors.textPrimary};
 
   &:hover {
     background: ${(props) =>
-      props.$variant === 'primary' ? '#357abd' : '#d0d0d0'};
+      props.$variant === 'primary'
+        ? colors.primaryHover
+        : colors.secondaryHover};
   }
 
   &:disabled {
@@ -197,19 +231,19 @@ export const SearchContainer = styled.div`
 export const SearchInput = styled.input`
   width: 100%;
   padding: 10px 40px 10px 40px;
-  border: 1px solid #ddd;
+  border: 1px solid ${colors.borderLight};
   border-radius: 6px;
   font-size: 14px;
-  background: white;
-  color: #333;
+  background: ${colors.background};
+  color: ${colors.textPrimary};
 
   &::placeholder {
-    color: #999;
+    color: ${colors.textMuted};
   }
 
   &:focus {
     outline: none;
-    border-color: #4a90e2;
+    border-color: ${colors.primary};
   }
 `;
 
@@ -231,10 +265,10 @@ export const ClearButton = styled.button`
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: #999;
+  color: ${colors.textMuted};
 
   &:hover {
-    color: #333;
+    color: ${colors.textPrimary};
   }
 `;
 
@@ -246,50 +280,50 @@ export const SortContainer = styled.div`
 
 export const SortLabel = styled.label`
   font-size: 14px;
-  color: #666;
+  color: ${colors.textSecondary};
   white-space: nowrap;
 `;
 
 export const SortSelect = styled.select`
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid ${colors.borderLight};
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-  background: white;
-  color: #333;
+  background: ${colors.background};
+  color: ${colors.textPrimary};
 
   &:focus {
     outline: none;
-    border-color: #4a90e2;
+    border-color: ${colors.primary};
   }
 
   option {
-    color: #333;
+    color: ${colors.textPrimary};
   }
 `;
 
 export const AddListButton = styled.button`
   min-width: 280px;
   padding: 16px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 2px dashed #ccc;
+  background: ${colors.backgroundOverlay};
+  border: 2px dashed ${colors.borderMuted};
   border-radius: 8px;
-  color: #666;
+  color: ${colors.textSecondary};
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: #999;
+    background: ${colors.backgroundOverlayHover};
+    border-color: ${colors.textMuted};
   }
 `;
 
 export const AddListForm = styled.form`
   min-width: 280px;
-  background: #f8f9fa;
+  background: ${colors.backgroundMuted};
   border-radius: 8px;
   padding: 16px;
   display: flex;
@@ -305,7 +339,7 @@ export const IconButton = styled.button`
   padding: 4px 8px;
   transition: all 0.2s ease;
   opacity: 0.7;
-  color: red;
+  color: ${colors.danger};
   &:hover {
     opacity: 1;
     transform: scale(1.1);
