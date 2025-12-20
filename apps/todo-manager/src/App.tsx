@@ -3,6 +3,7 @@ import { Todos } from '@repo-feat/todos';
 import { Button } from '@repo-pak/components';
 import type { ApiClient } from '@repo-pak/api-client';
 import { useUserActions } from './hooks/useUserActions';
+import { MESSAGES } from './messages';
 
 import './App.css';
 
@@ -31,10 +32,10 @@ export const App = ({ apiClient }: AppProps) => {
                     margin: '0 auto 20px',
                   }}
                 >
-                  <h2 style={{ margin: 0 }}>
-                    Welcome, <strong>{username}</strong>
-                  </h2>
-                  <Button.Primary onClick={onLogout}>Logout</Button.Primary>
+                  <h2 style={{ margin: 0 }}>{MESSAGES.WELCOME(username)}</h2>
+                  <Button.Primary onClick={onLogout}>
+                    {MESSAGES.BUTTON_LOGOUT}
+                  </Button.Primary>
                 </div>
                 <Todos.TaskBoard />
               </div>
