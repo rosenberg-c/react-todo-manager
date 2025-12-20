@@ -91,6 +91,6 @@ export const UserDetail = styled.span`
 
 export const ButtonGroup = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 0.75rem;
 `;
