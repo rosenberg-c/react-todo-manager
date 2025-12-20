@@ -1,34 +1,5 @@
 import styled from 'styled-components';
-
-const colors = {
-  textPrimary: '#333',
-  textSecondary: '#666',
-  textMuted: '#999',
-  textLight: 'rgba(255, 255, 255, 0.87)',
-  textDark: '#1a1a1a',
-
-  background: 'white',
-  backgroundMuted: '#f8f9fa',
-  backgroundHover: '#f0f0f0',
-  backgroundOverlay: 'rgba(0, 0, 0, 0.05)',
-  backgroundOverlayHover: 'rgba(0, 0, 0, 0.08)',
-
-  border: '#e0e0e0',
-  borderLight: '#ddd',
-  borderMuted: '#ccc',
-  borderDivider: '#f0f0f0',
-
-  shadow: 'rgba(0, 0, 0, 0.1)',
-  shadowHover: 'rgba(0, 0, 0, 0.15)',
-
-  primary: '#4a90e2',
-  primaryHover: '#357abd',
-  secondary: '#e0e0e0',
-  secondaryHover: '#d0d0d0',
-
-  danger: '#dc3545',
-  dangerBackground: '#ffe0e0',
-};
+import { colors } from '@repo-pak/styles';
 
 export const Container = styled.div`
   max-width: 1400px;
@@ -197,15 +168,13 @@ export const Button = styled.button<{ $variant?: 'primary' | 'secondary' }>`
   cursor: pointer;
   transition: all 0.2s ease;
   background: ${(props) =>
-    props.$variant === 'primary' ? colors.primary : colors.secondary};
+    props.$variant === 'primary' ? colors.primary : colors.border};
   color: ${(props) =>
     props.$variant === 'primary' ? colors.background : colors.textPrimary};
 
   &:hover {
     background: ${(props) =>
-      props.$variant === 'primary'
-        ? colors.primaryHover
-        : colors.secondaryHover};
+      props.$variant === 'primary' ? colors.primaryHover : colors.borderHover};
   }
 
   &:disabled {
@@ -231,7 +200,7 @@ export const SearchContainer = styled.div`
 export const SearchInput = styled.input`
   width: 100%;
   padding: 10px 40px 10px 40px;
-  border: 1px solid ${colors.borderLight};
+  border: 1px solid ${colors.border};
   border-radius: 6px;
   font-size: 14px;
   background: ${colors.background};
@@ -286,7 +255,7 @@ export const SortLabel = styled.label`
 
 export const SortSelect = styled.select`
   padding: 8px 12px;
-  border: 1px solid ${colors.borderLight};
+  border: 1px solid ${colors.border};
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
@@ -307,7 +276,7 @@ export const AddListButton = styled.button`
   min-width: 280px;
   padding: 16px;
   background: ${colors.backgroundOverlay};
-  border: 2px dashed ${colors.borderMuted};
+  border: 2px dashed ${colors.borderHover};
   border-radius: 8px;
   color: ${colors.textSecondary};
   font-size: 14px;
@@ -316,7 +285,7 @@ export const AddListButton = styled.button`
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${colors.backgroundOverlayHover};
+    background: ${colors.backgroundOverlay};
     border-color: ${colors.textMuted};
   }
 `;
