@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { colors } from '../../colors';
 
 export const EmptyState = styled.div`
   text-align: center;
   padding: 40px 20px;
-  color: #999;
+  color: ${colors.textMuted};
   font-size: 14px;
   font-style: italic;
 `;

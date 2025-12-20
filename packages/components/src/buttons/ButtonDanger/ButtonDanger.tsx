@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../colors';
 
 export const ButtonDanger = styled.button`
   padding: 8px 16px;
@@ -8,11 +9,11 @@ export const ButtonDanger = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: #dc3545;
-  color: white;
+  background: ${colors.danger};
+  color: ${colors.background};
 
   &:hover:not(:disabled) {
-    background: #c82333;
+    background: ${colors.dangerHover};
   }
 
   &:disabled {

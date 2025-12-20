@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../colors';
 
 export const Form = styled.form`
   display: flex;
@@ -16,5 +17,5 @@ export const FormGroup = styled.div`
 export const Label = styled.label`
   font-weight: 500;
   font-size: 0.9rem;
-  color: #333;
+  color: ${colors.textPrimary};
 `;
