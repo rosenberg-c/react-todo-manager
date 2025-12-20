@@ -1,6 +1,7 @@
 import path from 'path';
 
 export const config = {
+  host: process.env.HOST || '0.0.0.0',
   port: parseInt(process.env.PORT || '3002', 10),
   todosDbPath:
     process.env.TODOS_DB_PATH || path.join(process.cwd(), 'data', 'todos.json'),

@@ -1,4 +1,15 @@
+const getHost = () => {
+  if (typeof window !== 'undefined') {
+    return window.location.hostname;
+  }
+  return 'localhost';
+};
+
 export const API_CONFIG = {
-  USERS_BASE_URL: 'http://localhost:3001',
-  TODOS_BASE_URL: 'http://localhost:3002',
+  get USERS_BASE_URL() {
+    return `http://${getHost()}:3001`;
+  },
+  get TODOS_BASE_URL() {
+    return `http://${getHost()}:3002`;
+  },
 } as const;
