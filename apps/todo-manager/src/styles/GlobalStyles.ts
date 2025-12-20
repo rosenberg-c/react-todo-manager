@@ -1,9 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-
-const colors = {
-  textLight: 'rgba(255, 255, 255, 0.87)',
-  backgroundDark: '#242424',
-};
+import { colors } from '@repo-pak/styles';
 
 export const GlobalStyles = createGlobalStyle`
   :root {
