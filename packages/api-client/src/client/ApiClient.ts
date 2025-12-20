@@ -440,6 +440,23 @@ export class ApiClient {
   }
 
   /**
+   * Delete all lists for a specific user
+   * @param userId User ID (UUID)
+   * @returns Number of lists deleted
+   */
+  async deleteListsByUserId(userId: string): Promise<number> {
+    try {
+      const lists = await this.getAllLists(userId);
+
+      await Promise.all(lists.map((list) => this.deleteList(list.id, userId)));
+
+      return lists.length;
+    } catch (error) {
+      handleApiError(error);
+    }
+  }
+
+  /**
    * Reorder a list by updating its priority
    * @param id List ID (UUID)
    * @param priority New priority value

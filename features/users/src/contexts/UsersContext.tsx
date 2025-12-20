@@ -16,6 +16,7 @@ export interface UsersContextType {
   createUser: (username: string, password: string) => Promise<void>;
   deleteUser: (id: string) => Promise<void>;
   deleteTodosByUserId: (userId: string) => Promise<number>;
+  deleteListsByUserId: (userId: string) => Promise<number>;
   getUserTodosCount: (userId: string) => Promise<number>;
   getUserListsCount: (userId: string) => Promise<number>;
   refreshUsers: () => Promise<void>;
@@ -104,6 +105,25 @@ export const UsersProvider = ({
     [apiClient]
   );
 
+  const deleteListsByUserId = useCallback(
+    async (userId: string): Promise<number> => {
+      setLoading(true);
+      setError(null);
+      try {
+        const deletedCount = await apiClient.deleteListsByUserId(userId);
+        return deletedCount;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Failed to delete lists';
+        setError(errorMessage);
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [apiClient]
+  );
+
   const getUserTodosCount = useCallback(
     async (userId: string): Promise<number> => {
       try {
@@ -178,6 +198,7 @@ export const UsersProvider = ({
         createUser,
         deleteUser,
         deleteTodosByUserId,
+        deleteListsByUserId,
         getUserTodosCount,
         getUserListsCount,
         refreshUsers,

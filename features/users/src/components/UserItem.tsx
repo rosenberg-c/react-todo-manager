@@ -16,12 +16,14 @@ export const UserItem = ({ user, ctx }: UserItemProps) => {
   const {
     deleteUser,
     deleteTodosByUserId,
+    deleteListsByUserId,
     getUserTodosCount,
     getUserListsCount,
     loading,
   } = ctx;
   const [deleting, setDeleting] = useState(false);
   const [deletingTodos, setDeletingTodos] = useState(false);
+  const [deletingLists, setDeletingLists] = useState(false);
 
   const handleDelete = async () => {
     setDeleting(true);
@@ -69,6 +71,20 @@ export const UserItem = ({ user, ctx }: UserItemProps) => {
     }
   };
 
+  const handleDeleteLists = async () => {
+    if (!confirm(MESSAGES.CONFIRM_DELETE_LISTS(user.username))) return;
+
+    setDeletingLists(true);
+    try {
+      const count = await deleteListsByUserId(user.id);
+      alert(MESSAGES.SUCCESS_DELETE_LISTS(count));
+    } catch (_err) {
+      alert(MESSAGES.ERROR_DELETE_LISTS_FAILED);
+    } finally {
+      setDeletingLists(false);
+    }
+  };
+
   return (
     <S.UserItem>
       <S.UserInfo>
@@ -80,11 +96,19 @@ export const UserItem = ({ user, ctx }: UserItemProps) => {
         <S.ButtonGroup>
           <Button.Secondary
             onClick={handleDeleteTodos}
-            disabled={loading || deleting || deletingTodos}
+            disabled={loading || deleting || deletingTodos || deletingLists}
           >
             {deletingTodos
               ? MESSAGES.BUTTON_DELETING_TODOS
               : MESSAGES.BUTTON_DELETE_TODOS}
+          </Button.Secondary>
+          <Button.Secondary
+            onClick={handleDeleteLists}
+            disabled={loading || deleting || deletingTodos || deletingLists}
+          >
+            {deletingLists
+              ? MESSAGES.BUTTON_DELETING_LISTS
+              : MESSAGES.BUTTON_DELETE_LISTS}
           </Button.Secondary>
           <Button.Danger onClick={handleDelete} disabled={loading || deleting}>
             {deleting ? MESSAGES.BUTTON_DELETING : MESSAGES.BUTTON_DELETE}

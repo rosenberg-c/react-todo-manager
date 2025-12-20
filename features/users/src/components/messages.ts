@@ -26,6 +26,8 @@ export const MESSAGES = {
   BUTTON_DELETING: 'Deleting...',
   BUTTON_DELETE_TODOS: 'Delete Todos',
   BUTTON_DELETING_TODOS: 'Deleting Todos...',
+  BUTTON_DELETE_LISTS: 'Delete Lists',
+  BUTTON_DELETING_LISTS: 'Deleting Lists...',
 
   // Validation errors
   ERROR_USERNAME_TOO_SHORT: 'Username must be at least 3 characters',
@@ -37,6 +39,7 @@ export const MESSAGES = {
   ERROR_USER_HAS_LISTS: (count: number) =>
     `Cannot delete user: please remove all lists first (${count} remaining)`,
   ERROR_DELETE_TODOS_FAILED: 'Failed to delete todos',
+  ERROR_DELETE_LISTS_FAILED: 'Failed to delete lists',
   ERROR_LOGIN_FAILED: 'Login failed',
 
   // Status messages
@@ -54,6 +57,10 @@ export const MESSAGES = {
   CONFIRM_DELETE_USER: (username: string) => `Delete user "${username}"?`,
   CONFIRM_DELETE_TODOS: (username: string) =>
     `Delete all todos for user "${username}"?`,
+  CONFIRM_DELETE_LISTS: (username: string) =>
+    `Delete all lists for user "${username}"?`,
   SUCCESS_DELETE_TODOS: (count: number) =>
     `Successfully deleted ${count} todo${count !== 1 ? 's' : ''}`,
+  SUCCESS_DELETE_LISTS: (count: number) =>
+    `Successfully deleted ${count} list${count !== 1 ? 's' : ''}`,
 } as const;
