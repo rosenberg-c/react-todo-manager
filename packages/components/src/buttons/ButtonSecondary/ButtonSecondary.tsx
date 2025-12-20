@@ -1,20 +1,20 @@
 import styled from 'styled-components';
-import { colors } from '../../colors';
+import { colors } from '@repo-pak/styles';
 
 export const ButtonSecondary = styled.button`
   padding: 8px 16px;
-  border: 1px solid ${colors.borderSecondary};
+  border: 1px solid ${colors.border};
   border-radius: 4px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: ${colors.backgroundSecondary};
+  background: ${colors.backgroundMuted};
   color: ${colors.textPrimary};
 
   &:hover:not(:disabled) {
-    background: ${colors.backgroundSecondaryHover};
-    border-color: ${colors.borderSecondaryHover};
+    background: ${colors.backgroundHover};
+    border-color: ${colors.borderHover};
   }
 
   &:disabled {

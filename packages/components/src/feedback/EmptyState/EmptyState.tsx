@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '../../colors';
+import { colors } from '@repo-pak/styles';
 
 export const EmptyState = styled.div`
   text-align: center;
