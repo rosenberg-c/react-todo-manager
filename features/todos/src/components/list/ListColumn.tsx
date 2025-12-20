@@ -80,7 +80,7 @@ export const ListColumn = ({
     onDragStart?.(todoId);
   };
 
-  const handleDragEnd = (e: React.DragEvent) => {
+  const handleDragEnd = (_e: React.DragEvent) => {
     onDragEnd?.();
   };
 
