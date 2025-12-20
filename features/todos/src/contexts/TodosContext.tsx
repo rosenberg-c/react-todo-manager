@@ -47,7 +47,7 @@ export interface BoardProviderProps {
   apiClient: ApiClient;
 }
 
-export const BoardProvider = ({
+export const TodosProvider = ({
   children,
   userId,
   apiClient,

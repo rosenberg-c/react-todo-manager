@@ -17,7 +17,7 @@ export const App = ({ apiClient }: AppProps) => {
     <Users.Management
       userActions={userActions}
       renderLoggedIn={(userId, username, onLogout) => (
-        <Todos.BoardProvider userId={userId} apiClient={apiClient}>
+        <Todos.TodosProvider userId={userId} apiClient={apiClient}>
           <Todos.ListProvider userId={userId} apiClient={apiClient}>
             <S.LoggedInContainer>
               <S.Header>
@@ -29,7 +29,7 @@ export const App = ({ apiClient }: AppProps) => {
               <Todos.TaskBoard />
             </S.LoggedInContainer>
           </Todos.ListProvider>
-        </Todos.BoardProvider>
+        </Todos.TodosProvider>
       )}
     />
   );

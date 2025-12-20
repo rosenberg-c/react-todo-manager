@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
 import type { PropsWithChildren } from 'react';
-import { BoardProvider, useBoard } from '../TodosContext';
+import { TodosProvider, useBoard } from '../TodosContext';
 import type { ApiClient, TodoContracts } from '@repo-pak/api-client';
 
 const createMockApiClient = (): ApiClient =>
@@ -37,9 +37,9 @@ describe('BoardContext', () => {
   });
 
   const wrapper = ({ children }: PropsWithChildren) => (
-    <BoardProvider userId="user-1" apiClient={mockApiClient}>
+    <TodosProvider userId="user-1" apiClient={mockApiClient}>
       {children}
-    </BoardProvider>
+    </TodosProvider>
   );
 
   describe('initialization', () => {
