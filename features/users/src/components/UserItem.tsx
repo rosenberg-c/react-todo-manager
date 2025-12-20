@@ -78,8 +78,10 @@ export const UserItem = ({ user, ctx }: UserItemProps) => {
     try {
       const count = await deleteListsByUserId(user.id);
       alert(MESSAGES.SUCCESS_DELETE_LISTS(count));
-    } catch (_err) {
-      alert(MESSAGES.ERROR_DELETE_LISTS_FAILED);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : MESSAGES.ERROR_DELETE_LISTS_FAILED;
+      alert(message);
     } finally {
       setDeletingLists(false);
     }
