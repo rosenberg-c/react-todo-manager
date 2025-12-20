@@ -1,4 +1,4 @@
-# React List Manager
+# React Todo Manager POC
 
 A monorepo for a todo/list management application.
 
