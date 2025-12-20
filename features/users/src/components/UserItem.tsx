@@ -13,16 +13,32 @@ interface UserItemProps {
 }
 
 export const UserItem = ({ user, ctx }: UserItemProps) => {
-  const { deleteUser, deleteTodosByUserId, getUserTodosCount, loading } = ctx;
+  const {
+    deleteUser,
+    deleteTodosByUserId,
+    getUserTodosCount,
+    getUserListsCount,
+    loading,
+  } = ctx;
   const [deleting, setDeleting] = useState(false);
   const [deletingTodos, setDeletingTodos] = useState(false);
 
   const handleDelete = async () => {
     setDeleting(true);
     try {
-      const todosCount = await getUserTodosCount(user.id);
+      const [todosCount, listsCount] = await Promise.all([
+        getUserTodosCount(user.id),
+        getUserListsCount(user.id),
+      ]);
+
       if (todosCount > 0) {
         alert(MESSAGES.ERROR_USER_HAS_TODOS(todosCount));
+        setDeleting(false);
+        return;
+      }
+
+      if (listsCount > 0) {
+        alert(MESSAGES.ERROR_USER_HAS_LISTS(listsCount));
         setDeleting(false);
         return;
       }
@@ -33,7 +49,7 @@ export const UserItem = ({ user, ctx }: UserItemProps) => {
       }
 
       await deleteUser(user.id);
-    } catch (err) {
+    } catch (_err) {
       alert(MESSAGES.ERROR_DELETE_USER_FAILED);
       setDeleting(false);
     }
@@ -46,7 +62,7 @@ export const UserItem = ({ user, ctx }: UserItemProps) => {
     try {
       const count = await deleteTodosByUserId(user.id);
       alert(MESSAGES.SUCCESS_DELETE_TODOS(count));
-    } catch (err) {
+    } catch (_err) {
       alert(MESSAGES.ERROR_DELETE_TODOS_FAILED);
     } finally {
       setDeletingTodos(false);

@@ -34,6 +34,8 @@ export const MESSAGES = {
   ERROR_DELETE_USER_FAILED: 'Failed to delete user',
   ERROR_USER_HAS_TODOS: (count: number) =>
     `Cannot delete user: please remove all todos first (${count} remaining)`,
+  ERROR_USER_HAS_LISTS: (count: number) =>
+    `Cannot delete user: please remove all lists first (${count} remaining)`,
   ERROR_DELETE_TODOS_FAILED: 'Failed to delete todos',
   ERROR_LOGIN_FAILED: 'Login failed',
 
