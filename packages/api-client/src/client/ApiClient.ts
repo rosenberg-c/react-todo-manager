@@ -224,7 +224,6 @@ export class ApiClient {
       title?: string;
       description?: string;
       listId?: string;
-      status?: TodoContracts.TodoStatus; // Deprecated
     }
   ): Promise<TodoContracts.TodoResponseDto> {
     try {
