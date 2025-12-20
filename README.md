@@ -22,18 +22,24 @@ npm install -g pnpm@10.26
 
 ### Installation
 
-To install and use this package, you can follow these simple steps:
+```sh
+pnpm i
+```
 
-- **Install Node.js**: Ensure you have [nodejs.org](https://nodejs.org/) and ([pnpm](https://pnpm.io/)) installed on your system.
-- pnpm i
-  
-- **Run the development server:**:
+### Generate and run
 
-   ```bash
-   pnpm run dev
-   ```
+```sh
+# Generate api files for both BE and FE
+pnpm run generate:api
 
-This will start the development server.
+# in one terminal run 
+pnpm run dev:services
+
+# in another terminal run
+pnpm run dev:web
+
+# The app should be available at: http://localhost:5173/
+```
 
 ## PNPM
 
