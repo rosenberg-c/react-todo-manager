@@ -1,0 +1,22 @@
+{
+  "name": "@repo-pak/styles",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "private": true,
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm run clean:build && tsup",
+    "clean:build": "rm -rf dist",
+    "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@repo-pak/config": "workspace:*",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.3"
+  }
+}
