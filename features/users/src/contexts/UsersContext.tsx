@@ -16,6 +16,7 @@ export interface UsersContextType {
   createUser: (username: string, password: string) => Promise<void>;
   deleteUser: (id: string) => Promise<void>;
   deleteTodosByUserId: (userId: string) => Promise<number>;
+  getUserTodosCount: (userId: string) => Promise<number>;
   refreshUsers: () => Promise<void>;
   login: (
     username: string,
@@ -102,6 +103,18 @@ export const UsersProvider = ({
     [apiClient]
   );
 
+  const getUserTodosCount = useCallback(
+    async (userId: string): Promise<number> => {
+      try {
+        const todos = await apiClient.getAllTodos(userId);
+        return todos.length;
+      } catch {
+        return 0;
+      }
+    },
+    [apiClient]
+  );
+
   const refreshUsers = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -152,6 +165,7 @@ export const UsersProvider = ({
         createUser,
         deleteUser,
         deleteTodosByUserId,
+        getUserTodosCount,
         refreshUsers,
         login,
       }}

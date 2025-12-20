@@ -13,15 +13,25 @@ interface UserItemProps {
 }
 
 export const UserItem = ({ user, ctx }: UserItemProps) => {
-  const { deleteUser, deleteTodosByUserId, loading } = ctx;
+  const { deleteUser, deleteTodosByUserId, getUserTodosCount, loading } = ctx;
   const [deleting, setDeleting] = useState(false);
   const [deletingTodos, setDeletingTodos] = useState(false);
 
   const handleDelete = async () => {
-    if (!confirm(MESSAGES.CONFIRM_DELETE_USER(user.username))) return;
-
     setDeleting(true);
     try {
+      const todosCount = await getUserTodosCount(user.id);
+      if (todosCount > 0) {
+        alert(MESSAGES.ERROR_USER_HAS_TODOS(todosCount));
+        setDeleting(false);
+        return;
+      }
+
+      if (!confirm(MESSAGES.CONFIRM_DELETE_USER(user.username))) {
+        setDeleting(false);
+        return;
+      }
+
       await deleteUser(user.id);
     } catch (err) {
       alert(MESSAGES.ERROR_DELETE_USER_FAILED);

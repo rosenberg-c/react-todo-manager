@@ -32,6 +32,8 @@ export const MESSAGES = {
   ERROR_PASSWORD_TOO_SHORT: 'Password must be at least 8 characters',
   ERROR_CREATE_USER_FAILED: 'Failed to create user',
   ERROR_DELETE_USER_FAILED: 'Failed to delete user',
+  ERROR_USER_HAS_TODOS: (count: number) =>
+    `Cannot delete user: please remove all todos first (${count} remaining)`,
   ERROR_DELETE_TODOS_FAILED: 'Failed to delete todos',
   ERROR_LOGIN_FAILED: 'Login failed',
 
