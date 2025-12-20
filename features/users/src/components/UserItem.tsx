@@ -25,7 +25,7 @@ export const UserItem = ({ user, ctx }: UserItemProps) => {
   const [deletingTodos, setDeletingTodos] = useState(false);
   const [deletingLists, setDeletingLists] = useState(false);
 
-  const handleDelete = async () => {
+  const handleDeleteUser = async () => {
     setDeleting(true);
     try {
       const [todosCount, listsCount] = await Promise.all([
@@ -112,7 +112,10 @@ export const UserItem = ({ user, ctx }: UserItemProps) => {
               ? MESSAGES.BUTTON_DELETING_LISTS
               : MESSAGES.BUTTON_DELETE_LISTS}
           </Button.Secondary>
-          <Button.Danger onClick={handleDelete} disabled={loading || deleting}>
+          <Button.Danger
+            onClick={handleDeleteUser}
+            disabled={loading || deleting}
+          >
             {deleting ? MESSAGES.BUTTON_DELETING : MESSAGES.BUTTON_DELETE}
           </Button.Danger>
         </S.ButtonGroup>
