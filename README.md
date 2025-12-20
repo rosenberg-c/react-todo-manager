@@ -1,4 +1,27 @@
-# README
+# React List Manager
+
+A monorepo for a todo/list management application.
+
+## Structure
+
+```
+apps/
+  todo-manager/     # React frontend
+
+features/
+  todos/            # Todo feature (components, context)
+  users/            # User feature (components, context)
+
+packages/
+  api-client/       # Generated API clients
+  components/       # Shared UI components
+  styles/           # Shared colors/tokens
+  config/           # Shared tsconfig, eslint
+
+services/
+  todos/            # Todo API
+  users/            # User API
+```
 
 ## Getting Started
 
@@ -10,7 +33,6 @@ The easiest way to handle node versions is through nvm.
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
 nvm install 22
-nvm alias default 22.17.1
 nvm use 22
 ```
 
