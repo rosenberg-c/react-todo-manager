@@ -1,10 +1,19 @@
 import styled from 'styled-components';
 
+const colors = {
+  textPrimary: '#213547',
+  textSecondary: '#666',
+  background: 'white',
+  backgroundMuted: '#f9f9f9',
+  border: '#e0e0e0',
+  shadow: 'rgba(0, 0, 0, 0.1)',
+};
+
 export const Container = styled.div`
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
-  color: #213547;
+  color: ${colors.textPrimary};
 `;
 
 export const HeaderContainer = styled.div`
@@ -16,13 +25,13 @@ export const HeaderContainer = styled.div`
 
 export const Title = styled.h1`
   margin: 0;
-  color: #213547;
+  color: ${colors.textPrimary};
 `;
 
 export const SectionTitle = styled.h2`
   margin-bottom: 1rem;
   font-size: 1.25rem;
-  color: #213547;
+  color: ${colors.textPrimary};
 `;
 
 export const UserInfoHeader = styled.div`
@@ -32,7 +41,7 @@ export const UserInfoHeader = styled.div`
 
   span {
     font-size: 0.9rem;
-    color: #666;
+    color: ${colors.textSecondary};
   }
 `;
 
@@ -48,11 +57,11 @@ export const FormsContainer = styled.div`
 `;
 
 export const Section = styled.section`
-  background: white;
+  background: ${colors.background};
   padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${colors.border};
+  box-shadow: 0 1px 3px ${colors.shadow};
 `;
 
 export const UsersSection = styled(Section)`
@@ -67,8 +76,8 @@ export const UserList = styled.ul`
 
 export const UserItem = styled.li`
   padding: 1rem;
-  background: #f9f9f9;
-  border: 1px solid #e0e0e0;
+  background: ${colors.backgroundMuted};
+  border: 1px solid ${colors.border};
   border-radius: 4px;
   margin-bottom: 0.5rem;
 `;
@@ -81,12 +90,12 @@ export const UserInfo = styled.div`
 
 export const UserUsername = styled.strong`
   font-size: 1.1rem;
-  color: #213547;
+  color: ${colors.textPrimary};
 `;
 
 export const UserDetail = styled.span`
   font-size: 0.875rem;
-  color: #666;
+  color: ${colors.textSecondary};
 `;
 
 export const ButtonGroup = styled.div`
