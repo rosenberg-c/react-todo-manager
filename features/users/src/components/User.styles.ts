@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const colors = {
   textPrimary: '#213547',
   textSecondary: '#666',
+  textHeading: '#dadddfff',
   background: 'white',
   backgroundMuted: '#f9f9f9',
   border: '#e0e0e0',
@@ -25,7 +26,7 @@ export const HeaderContainer = styled.div`
 
 export const Title = styled.h1`
   margin: 0;
-  color: ${colors.textPrimary};
+  color: ${colors.textHeading};
 `;
 
 export const SectionTitle = styled.h2`
