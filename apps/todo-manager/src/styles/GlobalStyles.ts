@@ -1,12 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
+const colors = {
+  textLight: 'rgba(255, 255, 255, 0.87)',
+  backgroundDark: '#242424',
+};
+
 export const GlobalStyles = createGlobalStyle`
   :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    color: ${colors.textLight};
+    background-color: ${colors.backgroundDark};
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
