@@ -2,6 +2,7 @@ import { Users } from '@repo-feat/users';
 import { Todos } from '@repo-feat/todos';
 import { Button } from '@repo-pak/components';
 import type { ApiClient } from '@repo-pak/api-client';
+import { useUserActions } from './hooks/useUserActions';
 
 import './App.css';
 
@@ -10,9 +11,12 @@ interface AppProps {
 }
 
 export const App = ({ apiClient }: AppProps) => {
+  const userActions = useUserActions();
+
   return (
     <>
       <Users.Management
+        userActions={userActions}
         renderLoggedIn={(userId, username, onLogout) => (
           <Todos.BoardProvider userId={userId} apiClient={apiClient}>
             <Todos.ListProvider userId={userId} apiClient={apiClient}>

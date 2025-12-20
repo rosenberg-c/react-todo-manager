@@ -6,6 +6,7 @@ import { useUsers } from '../contexts/UsersContext';
 import { UserCreate } from './UserCreate';
 import { UserList } from './UserList';
 import { UserLogin } from './UserLogin';
+import type { UserActions } from '../types/userActions';
 import * as S from './User.styles';
 import { MESSAGES } from './messages';
 
@@ -15,6 +16,7 @@ const SESSION_KEYS = {
 };
 
 export interface UserManagementProps {
+  userActions: UserActions;
   renderLoggedIn?: (
     userId: string,
     username: string,
@@ -23,8 +25,9 @@ export interface UserManagementProps {
 }
 
 export const UserManagement = ({
+  userActions,
   renderLoggedIn,
-}: UserManagementProps = {}) => {
+}: UserManagementProps) => {
   const usersContext = useUsers();
   const { users, loading, error, login } = usersContext;
 
@@ -119,7 +122,11 @@ export const UserManagement = ({
             {loading && (
               <Feedback.Loading>{MESSAGES.STATUS_LOADING}</Feedback.Loading>
             )}
-            <UserList users={users} ctx={usersContext} />
+            <UserList
+              users={users}
+              ctx={usersContext}
+              userActions={userActions}
+            />
           </S.UsersSection>
         </>
       )}

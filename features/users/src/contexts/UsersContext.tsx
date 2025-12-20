@@ -15,10 +15,6 @@ export interface UsersContextType {
   error: string | null;
   createUser: (username: string, password: string) => Promise<void>;
   deleteUser: (id: string) => Promise<void>;
-  deleteTodosByUserId: (userId: string) => Promise<number>;
-  deleteListsByUserId: (userId: string) => Promise<number>;
-  getUserTodosCount: (userId: string) => Promise<number>;
-  getUserListsCount: (userId: string) => Promise<number>;
   refreshUsers: () => Promise<void>;
   login: (
     username: string,
@@ -86,68 +82,6 @@ export const UsersProvider = ({
     [apiClient]
   );
 
-  const deleteTodosByUserId = useCallback(
-    async (userId: string): Promise<number> => {
-      setLoading(true);
-      setError(null);
-      try {
-        const deletedCount = await apiClient.deleteTodosByUserId(userId);
-        return deletedCount;
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Failed to delete todos';
-        setError(errorMessage);
-        throw err;
-      } finally {
-        setLoading(false);
-      }
-    },
-    [apiClient]
-  );
-
-  const deleteListsByUserId = useCallback(
-    async (userId: string): Promise<number> => {
-      setLoading(true);
-      setError(null);
-      try {
-        const deletedCount = await apiClient.deleteListsByUserId(userId);
-        return deletedCount;
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Failed to delete lists';
-        setError(errorMessage);
-        throw err;
-      } finally {
-        setLoading(false);
-      }
-    },
-    [apiClient]
-  );
-
-  const getUserTodosCount = useCallback(
-    async (userId: string): Promise<number> => {
-      try {
-        const todos = await apiClient.getAllTodos(userId);
-        return todos.length;
-      } catch {
-        return 0;
-      }
-    },
-    [apiClient]
-  );
-
-  const getUserListsCount = useCallback(
-    async (userId: string): Promise<number> => {
-      try {
-        const lists = await apiClient.getAllLists(userId);
-        return lists.length;
-      } catch {
-        return 0;
-      }
-    },
-    [apiClient]
-  );
-
   const refreshUsers = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -197,10 +131,6 @@ export const UsersProvider = ({
         error,
         createUser,
         deleteUser,
-        deleteTodosByUserId,
-        deleteListsByUserId,
-        getUserTodosCount,
-        getUserListsCount,
         refreshUsers,
         login,
       }}

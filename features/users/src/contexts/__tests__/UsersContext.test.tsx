@@ -10,7 +10,6 @@ const createMockApiClient = (): ApiClient =>
     createUser: vi.fn(),
     getAllUsers: vi.fn(),
     deleteUser: vi.fn(),
-    deleteTodosByUserId: vi.fn(),
     login: vi.fn(),
   }) as unknown as ApiClient;
 
@@ -154,48 +153,6 @@ describe('UsersContext', () => {
 
       // Verify state wasn't changed on error
       expect(result.current.users).toHaveLength(1);
-    });
-  });
-
-  describe('deleteTodosByUserId', () => {
-    it('should delete todos and return count', async () => {
-      const user = createUser('1', 'testuser');
-      vi.mocked(mockApiClient.getAllUsers).mockResolvedValue([user]);
-      vi.mocked(mockApiClient.deleteTodosByUserId).mockResolvedValue(5);
-
-      const { result } = renderHook(() => useUsers(), { wrapper });
-
-      await waitFor(() => {
-        expect(result.current.users).toHaveLength(1);
-      });
-
-      let deletedCount: number = 0;
-      await act(async () => {
-        deletedCount = await result.current.deleteTodosByUserId('1');
-      });
-
-      expect(mockApiClient.deleteTodosByUserId).toHaveBeenCalledWith('1');
-      expect(deletedCount).toBe(5);
-      expect(result.current.error).toBeNull();
-    });
-
-    it('should handle delete todos error', async () => {
-      const user = createUser('1', 'testuser');
-      const error = new Error('Failed to delete todos');
-      vi.mocked(mockApiClient.getAllUsers).mockResolvedValue([user]);
-      vi.mocked(mockApiClient.deleteTodosByUserId).mockRejectedValue(error);
-
-      const { result } = renderHook(() => useUsers(), { wrapper });
-
-      await waitFor(() => {
-        expect(result.current.users).toHaveLength(1);
-      });
-
-      await expect(
-        act(async () => {
-          await result.current.deleteTodosByUserId('1');
-        })
-      ).rejects.toThrow('Failed to delete todos');
     });
   });
 
