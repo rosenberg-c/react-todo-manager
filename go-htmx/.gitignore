@@ -1,0 +1,17 @@
+# Go ignores.
+
+*bin
+*tmp
+*data
+*_templ.go
+.env
+.vscode
+__debug_*
+
+# Node/CSS build
+node_modules/
+static/dist/
+
+# Playwright
+playwright-report/
+test-results/
