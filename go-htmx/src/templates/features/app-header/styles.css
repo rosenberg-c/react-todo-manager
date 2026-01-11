@@ -1,0 +1,20 @@
+.__app-header__ {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 1.5rem;
+	background: var(--color-bg-card);
+	border-bottom: 0.0625rem solid var(--color-border-light);
+}
+
+.__app-header__ h1 {
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+.__app-header__ .__user-info__ {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	font-size: 0.875rem;
+}

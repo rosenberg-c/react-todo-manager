@@ -1,0 +1,25 @@
+package todocreate
+
+import "go/app/src/internal/fields"
+
+templ TodoCreate(listID, targetID string) {
+	<form
+		class={ Class.TodoCreate }
+		hx-post="/todos"
+		hx-target={ "#" + targetID }
+		hx-swap="beforeend"
+		hx-on::after-request="this.reset()"
+	>
+		<input type="hidden" name={ fields.TodoListID } value={ listID }/>
+		<input
+			type="text"
+			class={ Class.TodoCreateInput }
+			name={ fields.TodoTitle }
+			placeholder={ Msg.TitlePlaceholder }
+			required
+		/>
+		<button type="submit" class={ Class.TodoCreateBtn }>
+			{ Msg.SubmitButton }
+		</button>
+	</form>
+}

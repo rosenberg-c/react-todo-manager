@@ -1,0 +1,25 @@
+package appheader
+
+import (
+	"go/app/src/internal/routes"
+	"go/app/src/templates/components/menu"
+	themetoggle "go/app/src/templates/features/theme-toggle"
+)
+
+templ AppHeader(username string) {
+	<header class={ Class.AppHeader }>
+		<h1>{ Msg.AppTitle }</h1>
+		<div class={ Class.UserInfo }>
+			<span>{ Msg.WelcomePrefix }{ username }</span>
+			@menu.Menu() {
+				@themetoggle.ThemeSection()
+				@menu.Divider()
+				@menu.Item() {
+					<form method="POST" action={ templ.SafeURL(routes.Logout) }>
+						<button type="submit">{ Msg.Logout }</button>
+					</form>
+				}
+			}
+		</div>
+	</header>
+}

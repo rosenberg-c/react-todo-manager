@@ -1,0 +1,32 @@
+package authfields
+
+import "go/app/src/templates/shared"
+
+templ UsernameField() {
+	<div class={ shared.FormClass.FormGroup }>
+		<label for={ Username }>
+			{ Msg.UsernameLabel }
+		</label>
+		<input
+			type="text"
+			id={ Username }
+			name={ Username }
+			required
+			autofocus
+		/>
+	</div>
+}
+
+templ PasswordField() {
+	<div class={ shared.FormClass.FormGroup }>
+		<label for={ Password }>
+			{ Msg.PasswordLabel }
+		</label>
+		<input
+			type="password"
+			id={ Password }
+			name={ Password }
+			required
+		/>
+	</div>
+}

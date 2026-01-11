@@ -1,0 +1,45 @@
+package listcreate
+
+import (
+	"go/app/src/internal/fields"
+	"go/app/src/internal/routes"
+	"go/app/src/templates/shared"
+)
+
+templ ListCreateDialog() {
+	<dialog id={ ID.ListCreateDialog } class={ Class.ListCreateDialog }>
+		<div class={ Class.ListCreateContent }>
+			<h2>{ Msg.Title }</h2>
+			<form
+				hx-post={ routes.Lists }
+				hx-target={ "." + Class.AddListButton }
+				hx-swap="beforebegin"
+				hx-on::after-request="this.closest('dialog').close(); this.reset()"
+			>
+				<div class={ shared.FormClass.FormGroup }>
+					<label for={ fields.ListName }>{ Msg.NameLabel }</label>
+					<input
+						type="text"
+						id={ fields.ListName }
+						name={ fields.ListName }
+						placeholder={ Msg.NamePlaceholder }
+						required
+						autofocus
+					/>
+				</div>
+				<div class={ Class.ListCreateActions }>
+					<button
+						type="button"
+						class={ Class.CancelBtn }
+						onclick="this.closest('dialog').close()"
+					>
+						{ Msg.CancelButton }
+					</button>
+					<button type="submit" class={ Class.SubmitBtn }>
+						{ Msg.SubmitButton }
+					</button>
+				</div>
+			</form>
+		</div>
+	</dialog>
+}

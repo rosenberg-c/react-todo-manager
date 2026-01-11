@@ -1,0 +1,39 @@
+package register
+
+import (
+	"go/app/src/internal/routes"
+	authfields "go/app/src/templates/components/auth-fields"
+	"go/app/src/templates/layouts"
+	"go/app/src/templates/shared"
+)
+
+templ Page(errorMessage string) {
+	@layouts.Base(Msg.PageTitle) {
+		<main class={ shared.LayoutClass.AuthContainer }>
+			<h1>{ Msg.Title }</h1>
+			@Form(errorMessage)
+			<p class={ shared.LayoutClass.AuthLink }>
+				<a href={ templ.SafeURL(routes.Login) }>
+					{ Msg.LoginLink }
+				</a>
+			</p>
+		</main>
+	}
+}
+
+templ Form(errorMessage string) {
+	<form
+		hx-post={ routes.Register }
+		hx-swap="outerHTML"
+		hx-disabled-elt="button"
+	>
+		if errorMessage != "" {
+			<div class={ shared.FormClass.ErrorMessage }>{ errorMessage }</div>
+		}
+		@authfields.UsernameField()
+		@authfields.PasswordField()
+		<button type="submit">
+			{ Msg.SubmitButton }
+		</button>
+	</form>
+}

@@ -1,0 +1,81 @@
+package todocard
+
+import (
+	"fmt"
+	"go/app/src/internal/fields"
+	"go/app/src/internal/models"
+)
+
+func todoRoute(id string) string {
+	return fmt.Sprintf("/todos/%s", id)
+}
+
+templ TodoCard(todo models.Todo) {
+	<div class={ Class.TodoCard } id={ TodoID(todo.ID) } data-todo-id={ todo.ID }>
+		<input type="hidden" name="todoIds" value={ todo.ID }/>
+		<div class={ Class.TodoCardHeader }>
+			<div
+				class={ Class.TodoCardContent }
+				hx-get={ todoRoute(todo.ID) + "/edit" }
+				hx-target={ "#" + TodoID(todo.ID) }
+				hx-swap="outerHTML"
+			>
+				<h4 class={ Class.TodoTitle }>{ todo.Title }</h4>
+				if todo.Description != "" {
+					<p class={ Class.TodoDescription }>{ todo.Description }</p>
+				} else {
+					<p class={ Class.TodoDescription + " " + Class.TodoNoDesc }>
+						{ Msg.NoDescription }
+					</p>
+				}
+			</div>
+			<div class={ Class.TodoCardActions }>
+				<button
+					type="button"
+					hx-delete={ todoRoute(todo.ID) }
+					hx-target={ "#" + TodoID(todo.ID) }
+					hx-swap="outerHTML"
+					hx-confirm={ Msg.DeleteConfirm }
+				>
+					{ Msg.DeleteButton }
+				</button>
+			</div>
+		</div>
+	</div>
+}
+
+templ TodoCardEdit(todo models.Todo) {
+	<div class={ Class.TodoCard } id={ TodoID(todo.ID) } data-todo-id={ todo.ID }>
+		<form
+			hx-put={ todoRoute(todo.ID) }
+			hx-target={ "#" + TodoID(todo.ID) }
+			hx-swap="outerHTML"
+			hx-trigger="submit, keydown[key=='Escape'] from:body"
+		>
+			<input
+				type="text"
+				class={ Class.TodoTitleInput }
+				name={ fields.TodoTitle }
+				value={ todo.Title }
+				autofocus
+			/>
+			<textarea
+				class={ Class.TodoDescInput }
+				name={ fields.TodoDescription }
+				placeholder={ Msg.NoDescription }
+			>{ todo.Description }</textarea>
+			<input type="hidden" name={ fields.TodoListID } value={ todo.ListID }/>
+			<div class={ Class.TodoEditActions }>
+				<button type="submit" class={ Class.TodoSaveButton }>
+					{ Msg.SaveButton }
+				</button>
+			</div>
+		</form>
+	</div>
+}
+
+templ TodoCards(todos []models.Todo) {
+	for _, todo := range todos {
+		@TodoCard(todo)
+	}
+}

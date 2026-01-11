@@ -1,0 +1,63 @@
+package menu
+
+import "go/app/src/templates/icons/hamburger"
+
+templ Menu() {
+	<div
+		class={ Class.Menu }
+		data-dropdown-id={ ID.Dropdown }
+		data-menu-class={ Class.Menu }
+		data-open-class={ Class.Open }
+	>
+		<button
+			type="button"
+			class={ Class.MenuBtn }
+			onclick="toggleMenu(this)"
+			aria-label="Menu"
+		>
+			@hamburger.Icon()
+		</button>
+		<div id={ ID.Dropdown } class={ Class.Dropdown }>
+			{ children... }
+		</div>
+	</div>
+	@menuScript()
+}
+
+script menuScript() {
+	(function() {
+		if (window.__menuInitialized) return;
+		window.__menuInitialized = true;
+
+		document.addEventListener('click', function(e) {
+			document.querySelectorAll('[data-menu-class]').forEach(function(menuEl) {
+				if (!menuEl.contains(e.target)) {
+					var dropdown = document.getElementById(menuEl.dataset.dropdownId);
+					if (dropdown) dropdown.classList.remove(menuEl.dataset.openClass);
+				}
+			});
+		});
+
+		window.toggleMenu = function(btn) {
+			var menuEl = btn.closest('[data-menu-class]');
+			var dropdown = document.getElementById(menuEl.dataset.dropdownId);
+			dropdown.classList.toggle(menuEl.dataset.openClass);
+		};
+	})();
+}
+
+templ Section(title string) {
+	<div class={ Class.MenuSection }>
+		{ title }
+	</div>
+}
+
+templ Divider() {
+	<div class={ Class.Divider }></div>
+}
+
+templ Item() {
+	<div class={ Class.MenuItem }>
+		{ children... }
+	</div>
+}

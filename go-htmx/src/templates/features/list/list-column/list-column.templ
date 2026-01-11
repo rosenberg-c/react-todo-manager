@@ -1,0 +1,226 @@
+package listcolumn
+
+import (
+	"fmt"
+	"go/app/src/internal/fields"
+	"go/app/src/internal/models"
+	listcreate "go/app/src/templates/features/list/list-create"
+	todocard "go/app/src/templates/features/todo/todo-card"
+	todocreate "go/app/src/templates/features/todo/todo-create"
+)
+
+func listRoute(id string) string {
+	return fmt.Sprintf("/lists/%s", id)
+}
+
+type ListWithTodos struct {
+	List   models.List
+	Todos  []models.Todo
+	SortBy fields.SortOption
+}
+
+templ ListColumn(data ListWithTodos) {
+	<div class={ Class.ListColumn } id={ ListID(data.List.ID) }>
+		<div class={ Class.ListHeader }>
+			@ListTitle(data.List)
+			<div class={ Class.ListHeaderActions }>
+				<button
+					type="button"
+					hx-delete={ listRoute(data.List.ID) }
+					hx-target={ "#" + ListID(data.List.ID) }
+					hx-swap="outerHTML"
+					hx-confirm={ Msg.DeleteConfirm }
+					hx-on::response-error="alert(event.detail.xhr.responseText)"
+				>
+					{ Msg.DeleteButton }
+				</button>
+			</div>
+		</div>
+		<div class={ Class.ListContent }>
+			@ListTodos(data.List.ID, data.Todos, data.SortBy)
+			@todocreate.TodoCreate(data.List.ID, ListTodosID(data.List.ID))
+		</div>
+	</div>
+}
+
+func listTodosRoute(listID string) string {
+	return fmt.Sprintf("/lists/%s/todos", listID)
+}
+
+templ ListTodos(listID string, todos []models.Todo, sortBy fields.SortOption) {
+	<div id={ ListTodosTargetID(listID) }>
+		<select
+			class={ Class.SortSelect }
+			name={ fields.SortBy }
+			hx-get={ listTodosRoute(listID) }
+			hx-target={ "#" + ListTodosTargetID(listID) }
+			hx-swap="outerHTML"
+			hx-include="this"
+			onchange="updateSortUrl(this.value)"
+		>
+			<option
+				value={ string(fields.SortPriority) }
+				selected?={ sortBy == fields.SortPriority }
+			>
+				{ Msg.SortPriority }
+			</option>
+			<option
+				value={ string(fields.SortNewestFirst) }
+				selected?={ sortBy == fields.SortNewestFirst }
+			>
+				{ Msg.SortNewestFirst }
+			</option>
+			<option
+				value={ string(fields.SortOldestFirst) }
+				selected?={ sortBy == fields.SortOldestFirst }
+			>
+				{ Msg.SortOldestFirst }
+			</option>
+			<option
+				value={ string(fields.SortTitleAsc) }
+				selected?={ sortBy == fields.SortTitleAsc }
+			>
+				{ Msg.SortTitleAsc }
+			</option>
+			<option
+				value={ string(fields.SortTitleDesc) }
+				selected?={ sortBy == fields.SortTitleDesc }
+			>
+				{ Msg.SortTitleDesc }
+			</option>
+			<option
+				value={ string(fields.SortUpdated) }
+				selected?={ sortBy == fields.SortUpdated }
+			>
+				{ Msg.SortUpdated }
+			</option>
+		</select>
+		<form
+			class={ Class.ListTodos }
+			id={ ListTodosID(listID) }
+			data-list-id={ listID }
+			hx-post="/todos/reorder"
+			hx-trigger="end"
+			hx-swap="none"
+		>
+			if len(todos) == 0 {
+				<p class={ Class.ListEmpty }>{ Msg.TodoPlaceholder }</p>
+			} else {
+				@todocard.TodoCards(todos)
+			}
+		</form>
+	</div>
+}
+
+script initSortables(todoCardClass, ghostClass, dragClass, listEmptyClass, emptyText string) {
+	htmx.onLoad(function(content) {
+		content.querySelectorAll('[hx-trigger="end"]').forEach(function(container) {
+			if (container._sortable) return;
+			var sortable = new Sortable(container, {
+				animation: 150,
+				ghostClass: ghostClass,
+				dragClass: dragClass,
+				draggable: '.' + todoCardClass,
+				group: 'todos',
+				filter: '.' + listEmptyClass,
+				onEnd: function(evt) {
+					this.option('disabled', true);
+
+					// Handle empty state
+					var toEmpty = evt.to.querySelector('.' + listEmptyClass);
+					if (toEmpty) toEmpty.remove();
+
+					if (evt.from.querySelectorAll('.' + todoCardClass).length === 0) {
+						var emptyMsg = document.createElement('p');
+						emptyMsg.className = listEmptyClass;
+						emptyMsg.textContent = emptyText;
+						evt.from.appendChild(emptyMsg);
+					}
+
+					// Handle cross-list move
+					var fromListId = evt.from.dataset.listId;
+					var toListId = evt.to.dataset.listId;
+					if (fromListId !== toListId) {
+						var todoId = evt.item.dataset.todoId;
+						fetch('/todos/' + todoId + '/move', {
+							method: 'POST',
+							body: new URLSearchParams({ listId: toListId }),
+							credentials: 'same-origin'
+						});
+					}
+
+					// Trigger htmx to submit the form
+					htmx.trigger(evt.to, 'end');
+				}
+			});
+			container.addEventListener('htmx:afterRequest', function() {
+				sortable.option('disabled', false);
+			});
+		});
+	});
+}
+
+templ ListTitle(list models.List) {
+	<h3
+		class={ Class.ListTitle }
+		id={ ListTitleID(list.ID) }
+		hx-get={ listRoute(list.ID) + "/edit" }
+		hx-target={ "#" + ListTitleID(list.ID) }
+		hx-swap="outerHTML"
+	>
+		{ list.Name }
+	</h3>
+}
+
+templ ListTitleEdit(list models.List) {
+	<input
+		type="text"
+		class={ Class.ListTitleInput }
+		id={ ListTitleID(list.ID) }
+		name={ fields.ListName }
+		value={ list.Name }
+		hx-put={ listRoute(list.ID) }
+		hx-target={ "#" + ListID(list.ID) }
+		hx-swap="outerHTML"
+		hx-trigger="blur, keyup[key=='Enter']"
+		autofocus
+	/>
+}
+
+templ ListColumns(listsWithTodos []ListWithTodos) {
+	for _, data := range listsWithTodos {
+		@ListColumn(data)
+	}
+	@AddListButton()
+}
+
+script openAddListDialog(dialogID string) {
+	document.getElementById(dialogID).showModal();
+}
+
+templ AddListButton() {
+	<button
+		type="button"
+		class={ Class.AddListButton }
+		onclick={ openAddListDialog(listcreate.ID.ListCreateDialog) }
+	>
+		<span>+</span>
+		{ Msg.AddListButton }
+	</button>
+}
+
+templ Board(listsWithTodos []ListWithTodos) {
+	<div class={ Class.Board } id={ ID.Board }>
+		@ListColumns(listsWithTodos)
+	</div>
+	@sortUrlScript()
+	@initSortables(Class.TodoCard, Class.SortableGhost, Class.SortableDrag, Class.ListEmpty, Msg.TodoPlaceholder)
+}
+
+script sortUrlScript() {
+	window.updateSortUrl = function(sortBy) {
+		var url = new URL(window.location.href);
+		url.searchParams.set('sortBy', sortBy);
+		window.history.replaceState({}, '', url);
+	};
+}

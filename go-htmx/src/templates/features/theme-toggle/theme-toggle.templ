@@ -1,0 +1,84 @@
+package themetoggle
+
+import "go/app/src/templates/components/menu"
+
+templ ThemeSection() {
+	@menu.Section(Msg.ThemeSection)
+	<div
+		class={ menu.Class.MenuItem }
+		data-theme-ids={ ThemeIDs() }
+		data-default-theme={ Theme.System }
+	>
+		<input
+			type="radio"
+			name="theme"
+			id={ ID.ThemeLight }
+			value={ Theme.Light }
+			onchange="setTheme(this.value)"
+		/>
+		<label for={ ID.ThemeLight }>{ Msg.Light }</label>
+	</div>
+	<div class={ menu.Class.MenuItem }>
+		<input
+			type="radio"
+			name="theme"
+			id={ ID.ThemeDark }
+			value={ Theme.Dark }
+			onchange="setTheme(this.value)"
+		/>
+		<label for={ ID.ThemeDark }>{ Msg.Dark }</label>
+	</div>
+	<div class={ menu.Class.MenuItem }>
+		<input
+			type="radio"
+			name="theme"
+			id={ ID.ThemeSystem }
+			value={ Theme.System }
+			onchange="setTheme(this.value)"
+		/>
+		<label for={ ID.ThemeSystem }>{ Msg.System }</label>
+	</div>
+	@themeScript()
+}
+
+script themeScript() {
+	(function() {
+		if (window.__themeInitialized) return;
+		window.__themeInitialized = true;
+
+		var themeEl = document.querySelector('[data-theme-ids]');
+		if (!themeEl) return;
+
+		var themeIds = JSON.parse(themeEl.dataset.themeIds);
+		var defaultTheme = themeEl.dataset.defaultTheme;
+
+		function applyTheme() {
+			var theme = localStorage.getItem('theme') || defaultTheme;
+			var resolved;
+			if (theme === defaultTheme) {
+				var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+				resolved = prefersDark.matches ? 'dark' : 'light';
+			} else {
+				resolved = theme;
+			}
+			document.documentElement.setAttribute('data-theme', resolved);
+		}
+
+		var theme = localStorage.getItem('theme') || defaultTheme;
+		var el = document.getElementById(themeIds[theme]);
+		if (el) el.checked = true;
+		applyTheme();
+
+		window.setTheme = function(theme) {
+			localStorage.setItem('theme', theme);
+			applyTheme();
+		};
+
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+			var theme = localStorage.getItem('theme');
+			if (theme === defaultTheme || !theme) {
+				applyTheme();
+			}
+		});
+	})();
+}

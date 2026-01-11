@@ -1,0 +1,19 @@
+package home
+
+import (
+	appheader "go/app/src/templates/features/app-header"
+	listcolumn "go/app/src/templates/features/list/list-column"
+	listcreate "go/app/src/templates/features/list/list-create"
+	"go/app/src/templates/layouts"
+	"go/app/src/templates/shared"
+)
+
+templ Page(username string, listsWithTodos []listcolumn.ListWithTodos) {
+	@layouts.Base(Msg.PageTitle) {
+		@appheader.AppHeader(username)
+		<div class={ shared.LayoutClass.AppContent }>
+			@listcolumn.Board(listsWithTodos)
+		</div>
+		@listcreate.ListCreateDialog()
+	}
+}

@@ -1,0 +1,25 @@
+.__auth-container__ {
+    max-width: 25rem;
+    margin: auto;
+    padding: 2rem;
+    background: var(--color-bg-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+.__auth-container__ h1 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.__auth-link__ {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.__app-content__ {
+    padding: 1.5rem;
+}

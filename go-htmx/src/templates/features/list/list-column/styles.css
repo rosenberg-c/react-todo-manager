@@ -1,0 +1,124 @@
+.__list-column__ {
+	display: flex;
+	flex-direction: column;
+	min-width: 18.75rem;
+	max-width: 18.75rem;
+	background: var(--color-bg-card);
+	border-radius: var(--radius-md);
+	border: 0.0625rem solid var(--color-border-light);
+}
+
+.__list-header__ {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75rem 1rem;
+	border-bottom: 0.0625rem solid var(--color-border-light);
+}
+
+.__list-title__ {
+	margin: 0;
+	cursor: pointer;
+	padding: 0.25rem 0.5rem;
+	border-radius: var(--radius-sm);
+	border: 0.0625rem solid transparent;
+}
+
+.__list-title__:hover {
+	background: var(--color-bg-hover);
+}
+
+.__list-title-input__ {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+	padding: 0.25rem 0.5rem;
+	border-color: var(--color-primary);
+	width: 100%;
+	max-width: 11.25rem;
+}
+
+.__list-header-actions__ {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.__list-header-actions__ button {
+	padding: 0.25rem 0.5rem;
+	font-size: 0.75rem;
+	background: transparent;
+	border: 0.0625rem solid var(--color-border);
+	border-radius: var(--radius-sm);
+	color: var(--color-text-muted);
+	cursor: pointer;
+}
+
+.__list-header-actions__ button:hover {
+	background: var(--color-danger);
+	border-color: var(--color-danger);
+	color: var(--color-danger-text);
+}
+
+.__list-content__ {
+	flex: 1;
+	padding: 0.75rem;
+	min-height: 6.25rem;
+}
+
+.__list-empty__ {
+	color: var(--color-text-muted);
+	font-size: 0.875rem;
+	text-align: center;
+	padding: 1.5rem;
+}
+
+.__sortable-ghost__ {
+	opacity: 0.4;
+}
+
+.__sortable-drag__ {
+	opacity: 1;
+}
+
+.__sort-select__ {
+	width: 100%;
+	padding: 0.375rem 0.5rem;
+	font-size: 0.75rem;
+	cursor: pointer;
+	margin-bottom: 0.5rem;
+}
+
+/* Board styles */
+.__board__ {
+	display: flex;
+	gap: 1rem;
+	padding: 1.5rem;
+	overflow-x: auto;
+	min-height: calc(100vh - 6.25rem);
+	align-items: flex-start;
+}
+
+.__add-list-button__ {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-width: 18.75rem;
+	padding: 1rem;
+	background: transparent;
+	border: 0.125rem dashed var(--color-border);
+	border-radius: var(--radius-md);
+	color: var(--color-text-muted);
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.__add-list-button__:hover {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.__add-list-button__ span {
+	font-size: 1.25rem;
+	font-weight: 300;
+}

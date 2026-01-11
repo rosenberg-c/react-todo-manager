@@ -1,0 +1,39 @@
+.__list-create-content__ {
+	padding: 1.5rem;
+}
+
+.__list-create-dialog__ h2 {
+	margin: 0 0 1.25rem 0;
+}
+
+.__list-create-dialog__ .__form-group__ {
+	margin-bottom: 1rem;
+}
+
+.__list-create-dialog__ input {
+	width: 100%;
+	padding: 0.625rem 0.75rem;
+}
+
+.__list-create-actions__ {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	margin-top: 1.25rem;
+}
+
+.__list-create-actions__ button {
+	width: auto;
+	padding: 0.625rem 1rem;
+	font-size: 0.875rem;
+}
+
+.__list-create-actions__ .__cancel-btn__ {
+	background: transparent;
+	border: 0.0625rem solid var(--color-border);
+	color: var(--color-text);
+}
+
+.__list-create-actions__ .__cancel-btn__:hover {
+	background: var(--color-border-light);
+}
