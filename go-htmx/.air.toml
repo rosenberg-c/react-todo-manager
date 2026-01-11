@@ -3,7 +3,7 @@ tmp_dir = "tmp"
 
 [build]
   bin = "./tmp/server"
-  cmd = "go build -o ./tmp/server ./cmd/server"
+  cmd = "go build -o ./tmp/server ./src/cmd/server"
   delay = 1000
   exclude_dir = ["tmp", "bin", "data", "static", "node_modules"]
   exclude_regex = ["_test.go", "_templ.go"]

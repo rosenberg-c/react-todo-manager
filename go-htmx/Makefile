@@ -2,7 +2,7 @@
 
 # Build the server
 build:
-	go build -o bin/server ./cmd/server
+	go build -o bin/server ./src/cmd/server
 
 # Run the server
 run: build

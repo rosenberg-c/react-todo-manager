@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"react-todo-manager/go-htmx/internal/config"
+	"go/app/src/internal/config"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
